@@ -53,6 +53,7 @@ def createJSON(timestamp, score, dis_count, eye_count, urlvideo):
     }
     return json.dumps(value)
 
+
 # scoring
 def calc_score(dis_count, eye_count):
     dis_score = 0
@@ -82,6 +83,7 @@ def calc_score(dis_count, eye_count):
     score = ((33 / 100) * dis_score) + ((67 / 100) * eye_score)
 
     return score
+
 
 # Flask webapp
 @app.route("/api")
@@ -227,6 +229,9 @@ def video_process(path_video):
                     blinking_frames += 1
                     if blinking_frames == frames_to_blink:
                         eye_count += 1
+                else:
+                    blinking_frames = 0
+
                 if status_l < 0.1:
                     blinking_frames += 1
                     if blinking_frames == frames_to_blink:
@@ -309,4 +314,4 @@ def user():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='127.0.0.1', port=8080, debug=True)
