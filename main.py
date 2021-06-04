@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import os
 
 from tensorflow.keras import models
@@ -301,7 +303,7 @@ def audiopredict(audio):
 def audioprocess(path):
     sound = mp.VideoFileClip(path)
     sound_path = parent_path + "/sound.wav"
-    sound.audio.write_audiofile(filename=sound_path, fps=16000, nbytes=2, buffersize=2000, codec='pcm_s16le',
+    sound.audio.write_audiofile(filename=sound_path, fps=16000, nbytes=2, buffersize=2000, codec='pcm_s32le',
                                 ffmpeg_params=["-ac", "1"])
     dis_count = audiopredict(sound_path)
     os.remove(sound_path)
@@ -309,9 +311,9 @@ def audioprocess(path):
 
 
 @app.route("/")
-def user():
+def home():
     return "Nothing here bro"
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8080, debug=True)
+    app.run()
